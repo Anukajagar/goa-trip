@@ -1,0 +1,259 @@
+{
+    "dashboard": {
+        "id": null,
+        "uid": "goa-trip-metrics",
+        "title": "Goa Holiday Packages - Live Metrics",
+        "tags": [
+            "nodejs",
+            "express",
+            "monitoring"
+        ],
+        "timezone": "browser",
+        "refresh": "5s",
+        "time": {
+            "from": "now-15m",
+            "to": "now"
+        },
+        "panels": [
+            {
+                "id": 1,
+                "type": "stat",
+                "title": "Process CPU Time (seconds)",
+                "gridPos": {
+                    "h": 6,
+                    "w": 8,
+                    "x": 0,
+                    "y": 0
+                },
+                "targets": [
+                    {
+                        "expr": "process_cpu_user_seconds_total{app=\"goa-holiday-packages\"}",
+                        "legendFormat": "CPU Time",
+                        "refId": "A"
+                    }
+                ],
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "value": 0,
+                                    "color": "green"
+                                },
+                                {
+                                    "value": 50,
+                                    "color": "yellow"
+                                },
+                                {
+                                    "value": 100,
+                                    "color": "red"
+                                }
+                            ]
+                        },
+                        "unit": "s"
+                    }
+                }
+            },
+            {
+                "id": 2,
+                "type": "stat",
+                "title": "Memory Usage",
+                "gridPos": {
+                    "h": 6,
+                    "w": 8,
+                    "x": 8,
+                    "y": 0
+                },
+                "targets": [
+                    {
+                        "expr": "process_resident_memory_bytes{app=\"goa-holiday-packages\"}",
+                        "legendFormat": "Memory",
+                        "refId": "A"
+                    }
+                ],
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "value": 0,
+                                    "color": "green"
+                                },
+                                {
+                                    "value": 500000000,
+                                    "color": "yellow"
+                                },
+                                {
+                                    "value": 1000000000,
+                                    "color": "red"
+                                }
+                            ]
+                        },
+                        "unit": "bytes"
+                    }
+                }
+            },
+            {
+                "id": 3,
+                "type": "stat",
+                "title": "Active Handles",
+                "gridPos": {
+                    "h": 6,
+                    "w": 8,
+                    "x": 16,
+                    "y": 0
+                },
+                "targets": [
+                    {
+                        "expr": "nodejs_active_handles_total{app=\"goa-holiday-packages\"}",
+                        "legendFormat": "Handles",
+                        "refId": "A"
+                    }
+                ],
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "value": 0,
+                                    "color": "green"
+                                },
+                                {
+                                    "value": 50,
+                                    "color": "yellow"
+                                },
+                                {
+                                    "value": 100,
+                                    "color": "red"
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "id": 4,
+                "type": "timeseries",
+                "title": "Node.js Heap Memory Usage",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 6
+                },
+                "targets": [
+                    {
+                        "expr": "nodejs_heap_size_used_bytes{app=\"goa-holiday-packages\"}",
+                        "legendFormat": "Heap Used",
+                        "refId": "A"
+                    },
+                    {
+                        "expr": "nodejs_heap_size_total_bytes{app=\"goa-holiday-packages\"}",
+                        "legendFormat": "Heap Total",
+                        "refId": "B"
+                    }
+                ],
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "unit": "bytes"
+                    }
+                }
+            },
+            {
+                "id": 5,
+                "type": "timeseries",
+                "title": "Event Loop Lag",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 6
+                },
+                "targets": [
+                    {
+                        "expr": "nodejs_eventloop_lag_seconds{app=\"goa-holiday-packages\"}",
+                        "legendFormat": "Event Loop Lag",
+                        "refId": "A"
+                    }
+                ],
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "unit": "s"
+                    }
+                }
+            },
+            {
+                "id": 6,
+                "type": "timeseries",
+                "title": "Process CPU Usage Over Time",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 14
+                },
+                "targets": [
+                    {
+                        "expr": "rate(process_cpu_user_seconds_total{app=\"goa-holiday-packages\"}[1m])",
+                        "legendFormat": "CPU Rate",
+                        "refId": "A"
+                    }
+                ],
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "unit": "percentunit"
+                    }
+                }
+            },
+            {
+                "id": 7,
+                "type": "timeseries",
+                "title": "Memory Growth Rate",
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 14
+                },
+                "targets": [
+                    {
+                        "expr": "rate(process_resident_memory_bytes{app=\"goa-holiday-packages\"}[5m])",
+                        "legendFormat": "Memory Growth",
+                        "refId": "A"
+                    }
+                ],
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "unit": "Bps"
+                    }
+                }
+            }
+        ],
+        "schemaVersion": 36,
+        "version": 1
+    }
+}
